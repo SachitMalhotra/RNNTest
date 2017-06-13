@@ -8,7 +8,11 @@ import numpy as np
 from matplotlib.dates import strpdate2num
 
 class FileDB(object):
-    """description of class"""
+    """
+    Written binary arrays will have .npy extension tagged on
+    Strip/unstrip so that text and binary files can be treated logically
+
+    """
 
     def haveData(self, tag, label):
         return os.path.exists(self.getFileName(tag, label))
@@ -36,9 +40,11 @@ class FileDB(object):
             fname = self.getFileName(tag, label)
             arr   = np.load(fname)
             return arr
-        except IOError:
+        except IOError as e:
+            print(e)
             return np.zeros([0,0])
-        except TypeError:
+        except TypeError as e2:
+            print(e2)
             return np.zeros([0,0])
 
     def writeArray(self, tag, label, array):
@@ -81,5 +87,15 @@ class FileDB(object):
 
     def __init__(self, basedir):
         self.baseDir = basedir
+
+
+if __name__ == "__main__":
+    x = FileDB(r"/media/sachitm/DATA/ML Data")
+    a = np.load(r'/media/sachitm/DATA/ML Data/Results/r4_x.npy')
+    b = np.load(r'/media/sachitm/DATA/ML Data/Results/r4_x')
+    r4_x = x.readArrayBin('Results', 'r4_x')
+    r4_y = x.readArrayBin('Results', 'r4_y')
+    r4_t = x.readTime('Results', 'r4_t')
+
 
 
