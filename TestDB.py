@@ -73,9 +73,11 @@ class FileDB(object):
             fname   = self.getFileName(tag, label)
             arr     = np.loadtxt(fname, converters={0:FileDB.ctonpdt64}, dtype='datetime64')
             return arr
-        except IOError:
+        except IOError as e:
+            print(e)
             return np.zeros([0,0])
-        except TypeError:
+        except TypeError as e2:
+            print(e2)
             return np.zeros([0,0])
 
     def getLabelsForTag(self, tag):
