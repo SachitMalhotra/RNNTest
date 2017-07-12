@@ -85,7 +85,7 @@ def expand_to_one_hot(rows, sds):
 
 if __name__ == '__main__':
 
-    baseDir = r'/media/sachitm/DATA/ML Data'
+    baseDir = r'/media/mint/DATA/ML Data'
     x = FileDB(baseDir)
 
     r4_x = x.readArrayBin('Results', 'r4_x.npy')
